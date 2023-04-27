@@ -5,11 +5,11 @@
 !-------------------------------------------------------------------------
 !BOP
 !
-! !MODULE: MATRIXchem_GridCompMod - Implements MATRIX Chemistry
+! !MODULE: MATRIX_GridCompMod - Implements MATRIX Chemistry
 !
 ! !INTERFACE:
 !
-module MATRIXchem_GridCompMod
+module MATRIX_GridCompMod
 !
 ! !USES:
 !
@@ -29,7 +29,7 @@ module MATRIXchem_GridCompMod
    use aero_param,         only: MATRIX_N_GASES             => NGASES,        &
                                  MATRIX_N_EMIS_SPECIES      => NEMIS_SPCS,    &
                                  MATRIX_N_AEROSOL_DIAG      => NDIAG_AERO,    &
-                                 MATRIX_N_MASS_SPECIES      => NMASS_SPCS,    & 
+                                 MATRIX_N_MASS_SPECIES      => NMASS_SPCS,    &
                                  MATRIX_I                   => IXXX,          &
                                  MATRIX_J                   => IYYY,          &
                                  MATRIX_L                   => ILAY,          &
@@ -37,60 +37,60 @@ module MATRIXchem_GridCompMod
                                  MATRIX_MW_NH3              => MW_NH3,        &
                                  MATRIX_MASS_NO3            => MASS_NO3,      &
                                  MATRIX_MASS_NH4            => MASS_NH4,      &
-                                 MATRIX_MASS_H2O            => MASS_H2O,      &  
-                                 MATRIX_NUMB_AKK            => NUMB_AKK_1,    & 
-                                 MATRIX_MASS_AKK_SU         => MASS_AKK_SULF, &  
+                                 MATRIX_MASS_H2O            => MASS_H2O,      &
+                                 MATRIX_NUMB_AKK            => NUMB_AKK_1,    &
+                                 MATRIX_MASS_AKK_SU         => MASS_AKK_SULF, &
                                  MATRIX_NUMB_ACC            => NUMB_ACC_1,    &
                                  MATRIX_MASS_ACC_SU         => MASS_ACC_SULF, &
                                  MATRIX_NUMB_DD1            => NUMB_DD1_1,    &
-                                 MATRIX_MASS_DD1_SU         => MASS_DD1_SULF, & 
-                                 MATRIX_MASS_DD1_DU         => MASS_DD1_DUST, & 
+                                 MATRIX_MASS_DD1_SU         => MASS_DD1_SULF, &
+                                 MATRIX_MASS_DD1_DU         => MASS_DD1_DUST, &
                                  MATRIX_NUMB_DS1            => NUMB_DS1_1,    &
-                                 MATRIX_MASS_DS1_SU         => MASS_DS1_SULF, & 
-                                 MATRIX_MASS_DS1_DU         => MASS_DS1_DUST, & 
-                                 MATRIX_NUMB_DD2            => NUMB_DD2_1,    & 
-                                 MATRIX_MASS_DD2_SU         => MASS_DD2_SULF, & 
-                                 MATRIX_MASS_DD2_DU         => MASS_DD2_DUST, & 
-                                 MATRIX_NUMB_DS2            => NUMB_DS2_1,    & 
-                                 MATRIX_MASS_DS2_SU         => MASS_DS2_SULF, & 
-                                 MATRIX_MASS_DS2_DU         => MASS_DS2_DUST, & 
-                                 MATRIX_NUMB_SSA            => NUMB_SSA_1,    & 
-                                 MATRIX_MASS_SSA_SU         => MASS_SSA_SULF, & 
-                                 MATRIX_MASS_SSA_SS         => MASS_SSA_SEAS, & 
+                                 MATRIX_MASS_DS1_SU         => MASS_DS1_SULF, &
+                                 MATRIX_MASS_DS1_DU         => MASS_DS1_DUST, &
+                                 MATRIX_NUMB_DD2            => NUMB_DD2_1,    &
+                                 MATRIX_MASS_DD2_SU         => MASS_DD2_SULF, &
+                                 MATRIX_MASS_DD2_DU         => MASS_DD2_DUST, &
+                                 MATRIX_NUMB_DS2            => NUMB_DS2_1,    &
+                                 MATRIX_MASS_DS2_SU         => MASS_DS2_SULF, &
+                                 MATRIX_MASS_DS2_DU         => MASS_DS2_DUST, &
+                                 MATRIX_NUMB_SSA            => NUMB_SSA_1,    &
+                                 MATRIX_MASS_SSA_SU         => MASS_SSA_SULF, &
+                                 MATRIX_MASS_SSA_SS         => MASS_SSA_SEAS, &
                                  MATRIX_NUMB_SSC            => NUMB_SSC_1,    &
-                                 MATRIX_MASS_SSC_SU         => MASS_SSC_SULF, & 
+                                 MATRIX_MASS_SSC_SU         => MASS_SSC_SULF, &
                                  MATRIX_MASS_SSC_SS         => MASS_SSC_SEAS, &
                                  MATRIX_NUMB_OCC            => NUMB_OCC_1,    &
-                                 MATRIX_MASS_OCC_SU         => MASS_OCC_SULF, & 
+                                 MATRIX_MASS_OCC_SU         => MASS_OCC_SULF, &
                                  MATRIX_MASS_OCC_OC         => MASS_OCC_OCAR, &
                                  MATRIX_NUMB_BC1            => NUMB_BC1_1,    &
-                                 MATRIX_MASS_BC1_SU         => MASS_BC1_SULF, & 
+                                 MATRIX_MASS_BC1_SU         => MASS_BC1_SULF, &
                                  MATRIX_MASS_BC1_BC         => MASS_BC1_BCAR, &
                                  MATRIX_NUMB_BC2            => NUMB_BC2_1,    &
-                                 MATRIX_MASS_BC2_SU         => MASS_BC2_SULF, & 
+                                 MATRIX_MASS_BC2_SU         => MASS_BC2_SULF, &
                                  MATRIX_MASS_BC2_BC         => MASS_BC2_BCAR, &
                                  MATRIX_NUMB_BC3            => NUMB_BC3_1,    &
-                                 MATRIX_MASS_BC3_SU         => MASS_BC3_SULF, & 
+                                 MATRIX_MASS_BC3_SU         => MASS_BC3_SULF, &
                                  MATRIX_MASS_BC3_BC         => MASS_BC3_BCAR, &
                                  MATRIX_NUMB_DBC            => NUMB_DBC_1,    &
-                                 MATRIX_MASS_DBC_SU         => MASS_DBC_SULF, & 
-                                 MATRIX_MASS_DBC_BC         => MASS_DBC_BCAR, & 
+                                 MATRIX_MASS_DBC_SU         => MASS_DBC_SULF, &
+                                 MATRIX_MASS_DBC_BC         => MASS_DBC_BCAR, &
                                  MATRIX_MASS_DBC_DU         => MASS_DBC_DUST, &
                                  MATRIX_NUMB_BOC            => NUMB_BOC_1,    &
-                                 MATRIX_MASS_BOC_SU         => MASS_BOC_SULF, & 
-                                 MATRIX_MASS_BOC_BC         => MASS_BOC_BCAR, & 
+                                 MATRIX_MASS_BOC_SU         => MASS_BOC_SULF, &
+                                 MATRIX_MASS_BOC_BC         => MASS_BOC_BCAR, &
                                  MATRIX_MASS_BOC_OC         => MASS_BOC_OCAR, &
                                  MATRIX_NUMB_BCS            => NUMB_BCS_1,    &
                                  MATRIX_MASS_BCS_SU         => MASS_BCS_SULF, &
                                  MATRIX_MASS_BCS_BC         => MASS_BCS_BCAR, &
                                  MATRIX_NUMB_MXX            => NUMB_MXX_1,    &
-                                 MATRIX_MASS_MXX_SU         => MASS_MXX_SULF, & 
-                                 MATRIX_MASS_MXX_BC         => MASS_MXX_BCAR, & 
-                                 MATRIX_MASS_MXX_OC         => MASS_MXX_OCAR, & 
-                                 MATRIX_MASS_MXX_DU         => MASS_MXX_DUST, & 
+                                 MATRIX_MASS_MXX_SU         => MASS_MXX_SULF, &
+                                 MATRIX_MASS_MXX_BC         => MASS_MXX_BCAR, &
+                                 MATRIX_MASS_MXX_OC         => MASS_MXX_OCAR, &
+                                 MATRIX_MASS_MXX_DU         => MASS_MXX_DUST, &
                                  MATRIX_MASS_MXX_SS         => MASS_MXX_SEAS
 
-   use aero_setup,         only: MATRIX_SU_MAP              => SULF_MAP,     & 
+   use aero_setup,         only: MATRIX_SU_MAP              => SULF_MAP,     &
                                  MATRIX_DU_MAP              => DUST_MAP,     &
                                  MATRIX_SS_MAP              => SEAS_MAP,     &
                                  MATRIX_OC_MAP              => OCAR_MAP,     &
@@ -124,9 +124,9 @@ module MATRIXchem_GridCompMod
 
    public SetServices
 !
-! !DESCRIPTION: 
+! !DESCRIPTION:
 !
-!  {\tt MATRIXchem\_GridComp} is an ESMF gridded component implementing
+!  {\tt MATRIX\_GridComp} is an ESMF gridded component implementing
 !  the MATRIX aerosol microphysical processes.
 !
 !  Developed for GEOS-5 release Fortuna 2.0 and later.
@@ -174,7 +174,7 @@ contains
 !-------------------------------------------------------------------------
 !BOP
 !
-! !IROUTINE: SetServices --- Sets IRF services for the MATRIXchem Grid Component
+! !IROUTINE: SetServices --- Sets IRF services for the MATRIX Grid Component
 !
 ! !INTERFACE:
 
@@ -185,7 +185,7 @@ contains
     type(ESMF_GridComp), intent(INOUT) :: GC  ! gridded component
     integer, optional                  :: rc  ! return code
 
-! !DESCRIPTION: Sets Initialize, Run and Finalize services. 
+! !DESCRIPTION: Sets Initialize, Run and Finalize services.
 !
 ! !REVISION HISTORY:
 !
@@ -221,7 +221,7 @@ contains
 !   Load private Config Attributes
 !   ------------------------------
     self%CF = ESMF_ConfigCreate(__RC__)
-    call ESMF_ConfigLoadFile(self%CF, 'MATRIXchem_GridComp.rc', __RC__)
+    call ESMF_ConfigLoadFile(self%CF, 'MATRIX_GridComp.rc', __RC__)
 
     call ESMF_ConfigGetAttribute(self%CF, self%verbose,       Label='verbose:', default=.false.,  __RC__)
 
@@ -255,12 +255,12 @@ contains
     call MAPL_GridCompSetEntryPoint(GC, ESMF_METHOD_INITIALIZE, Initialize_, __RC__)
     call MAPL_GridCompSetEntryPoint(GC, ESMF_METHOD_RUN,        Run_,        __RC__)
     call MAPL_GridCompSetEntryPoint(GC, ESMF_METHOD_FINALIZE,   Finalize_,   __RC__)
-        
+
 !   Store internal state in GC
 !   --------------------------
     call ESMF_UserCompSetInternalState(GC, 'MATRIX_state', wrap, STATUS)
     VERIFY_(STATUS)
-  
+
 !                         ------------------
 !                         MAPL Data Services
 !                         ------------------
@@ -269,15 +269,15 @@ contains
 !
 ! !IMPORT STATE:
 
-#include "MATRIXchem_ImportSpec___.h"
+#include "MATRIX_ImportSpec___.h"
 
 ! !INTERNAL STATE:
 
-#include "MATRIXchem_InternalSpec___.h"
+#include "MATRIX_InternalSpec___.h"
 
 ! !EXTERNAL STATE:
 
-#include "MATRIXchem_ExportSpec___.h"
+#include "MATRIX_ExportSpec___.h"
 
 !   Generic Set Services
 !   --------------------
@@ -303,7 +303,7 @@ contains
 !-------------------------------------------------------------------------
 !BOP
 !
-! !IROUTINE:  Initialize_ --- Initialize MATRIXchem
+! !IROUTINE:  Initialize_ --- Initialize MATRIX
 !
 ! !INTERFACE:
 !
@@ -325,7 +325,7 @@ contains
     type(ESMF_State),    intent(inout)  :: EXPORT ! Export State
     integer,             intent(out)    :: rc     ! Error return code:
                                                   !  0 - all is well
-                                                  !  1 - 
+                                                  !  1 -
 
 ! !DESCRIPTION: This is a simple ESMF wrapper.
 !
@@ -341,7 +341,7 @@ contains
 
     type(MATRIX_state), pointer   :: self               ! Legacy state
     type(ESMF_Grid)               :: GRID               ! Grid
-    type(ESMF_Config)             :: CF                 ! Universal Config 
+    type(ESMF_Config)             :: CF                 ! Universal Config
 
     integer                       :: im_World, jm_World ! Global 2D Dimensions
     integer                       :: im, jm, lm         ! 3D Dimensions
@@ -358,12 +358,12 @@ contains
     integer                       :: n                  ! counter
 
     integer, allocatable          :: matrix_aerosol_indexes(:)
-   
 
-!   Declare pointers to IMPORT/EXPORT/INTERNAL states 
+
+!   Declare pointers to IMPORT/EXPORT/INTERNAL states
 !   -------------------------------------------------
-#include "MATRIXchem_DeclarePointer___.h"
-  
+#include "MATRIX_DeclarePointer___.h"
+
 !   Get my name and set-up traceback handle
 !   ---------------------------------------
     call ESMF_GridCompGet(GC, name=comp_name, __RC__)
@@ -374,15 +374,15 @@ contains
         write (*,*) trim(Iam)//': Starting...'
         write (*,*)
     end if
-  
+
 
 !   Initialize MAPL Generic
 !   -----------------------
     call MAPL_GenericInitialize (GC, IMPORT, EXPORT, clock,  __RC__)
 
-!   Get pointers to IMPORT/EXPORT/INTERNAL states 
+!   Get pointers to IMPORT/EXPORT/INTERNAL states
 !   ---------------------------------------------
-#include "MATRIXchem_GetPointer___.h"
+#include "MATRIX_GetPointer___.h"
 
 !   Extract relevant runtime information
 !   ------------------------------------
@@ -424,7 +424,7 @@ contains
     call MATRIX_setup_species_maps
     call MATRIX_setup_dp0
     call MATRIX_setup_aero_mass_map
-    call MATRIX_setup_coag_tensors 
+    call MATRIX_setup_coag_tensors
     call MATRIX_setup_dp0
     call MATRIX_setup_kij
     call MATRIX_setup_emis
@@ -462,11 +462,11 @@ contains
         write (*,*) 'MATRIX_MASS_DD1_SU : ', MATRIX_MASS_DD1_SU
         write (*,*) 'MATRIX_MASS_DD1_DU : ', MATRIX_MASS_DD1_DU
         write (*,*) 'MATRIX_NUMB_DS1    : ', MATRIX_NUMB_DS1
-        write (*,*) 'MATRIX_MASS_DS1_SU : ', MATRIX_MASS_DS1_SU 
+        write (*,*) 'MATRIX_MASS_DS1_SU : ', MATRIX_MASS_DS1_SU
         write (*,*) 'MATRIX_MASS_DS1_DU : ', MATRIX_MASS_DS1_DU
         write (*,*) 'MATRIX_NUMB_DD2    : ', MATRIX_NUMB_DD2
         write (*,*) 'MATRIX_MASS_DD2_SU : ', MATRIX_MASS_DD2_SU
-        write (*,*) 'MATRIX_MASS_DD2_DU : ', MATRIX_MASS_DD2_DU 
+        write (*,*) 'MATRIX_MASS_DD2_DU : ', MATRIX_MASS_DD2_DU
         write (*,*) 'MATRIX_NUMB_DS2    : ', MATRIX_NUMB_DS2
         write (*,*) 'MATRIX_MASS_DS2_SU : ', MATRIX_MASS_DS2_SU
         write (*,*) 'MATRIX_MASS_DS2_DU : ', MATRIX_MASS_DS2_DU
@@ -511,7 +511,7 @@ contains
     matrix_aerosol_indexes = 0
 
     ! verify MATRIX::AEROSOL array indexes
-    matrix_aerosol_indexes = (/MATRIX_MASS_NO3, MATRIX_MASS_NH4,    MATRIX_MASS_H2O,                        &   
+    matrix_aerosol_indexes = (/MATRIX_MASS_NO3, MATRIX_MASS_NH4,    MATRIX_MASS_H2O,                        &
                                MATRIX_NUMB_AKK, MATRIX_MASS_AKK_SU,                                         &
                                MATRIX_NUMB_ACC, MATRIX_MASS_ACC_SU,                                         &
                                MATRIX_NUMB_DD1, MATRIX_MASS_DD1_SU, MATRIX_MASS_DD1_DU,                     &
@@ -532,7 +532,7 @@ contains
 
     _ASSERT(any(matrix_aerosol_indexes > 0),'needs informative message')
     deallocate(matrix_aerosol_indexes, __STAT__)
-    
+
 
 !   All done
 !   --------
@@ -546,7 +546,7 @@ contains
 !-------------------------------------------------------------------------
 !BOP
 !
-! !IROUTINE:  Run_ --- Runs MATRIXchem
+! !IROUTINE:  Run_ --- Runs MATRIX
 !
 ! !INTERFACE:
 !
@@ -568,7 +568,7 @@ contains
    type(ESMF_State),    intent(inout) :: EXPORT ! Export State
    integer,             intent(out)   :: rc     ! Error return code:
                                                 !  0 - all is well
-                                                !  1 - 
+                                                !  1 -
 
 ! !DESCRIPTION: This is a simple ESMF wrapper.
 !
@@ -581,10 +581,10 @@ contains
 !-------------------------------------------------------------------------
 
                               __Iam__('Run_')
-   
+
     type(MATRIX_state), pointer   :: self               ! Legacy state
     type(ESMF_Grid)               :: GRID               ! Grid
-    type(ESMF_Config)             :: CF                 ! Universal Config 
+    type(ESMF_Config)             :: CF                 ! Universal Config
 
     integer                       :: im_World, jm_World ! Global 2D Dimensions
     integer                       :: im, jm, lm         ! 3D Dimensions
@@ -601,7 +601,7 @@ contains
 !   --- MATRIX ---
     real(8) :: T_            ! absolute temperature [K]
     real(8) :: RH_           ! relative humidity [0-1]
-    real(8) :: P_            ! ambient pressure [Pa]  
+    real(8) :: P_            ! ambient pressure [Pa]
     real(8) :: so4_aq_rate_  ! in-cloud SO4 production rate [ug/m^3/s]
     real(8) :: w_updraft_    ! cloud updraft velocity [m/s]
 
@@ -624,27 +624,27 @@ contains
     real, parameter,   dimension(2) :: duf_size_range = (/0.1, 2.5/)  ! lower and upper size|diameter range in 'um'
     real, parameter,   dimension(2) :: duc_size_range = (/2.0,10.0/)  ! lower and upper size|diameter range in 'um'
     real, pointer, dimension(:,:)   :: duf_emiss_mass, duf_emiss_num  ! fine
-    real, pointer, dimension(:,:)   :: duc_emiss_mass, duc_emiss_num  ! coarse 
+    real, pointer, dimension(:,:)   :: duc_emiss_mass, duc_emiss_num  ! coarse
     real, pointer, dimension(:,:)   :: dust_emiss_tot                 ! total is the sum of the emissions in the 5 GOCART bins
 
 
 
 
-!   Declare pointers to IMPORT/EXPORT/INTERNAL states 
+!   Declare pointers to IMPORT/EXPORT/INTERNAL states
 !   -------------------------------------------------
-#include "MATRIXchem_DeclarePointer___.h"
-  
+#include "MATRIX_DeclarePointer___.h"
+
 !   Get my name and set-up traceback handle
 !   ---------------------------------------
     call ESMF_GridCompGet(GC, name=comp_name, __RC__)
     Iam = trim(comp_name) // trim(Iam)
 
-!   Get pointers to IMPORT/EXPORT/INTERNAL states 
+!   Get pointers to IMPORT/EXPORT/INTERNAL states
 !   ---------------------------------------------
-#include "MATRIXchem_GetPointer___.h"
+#include "MATRIX_GetPointer___.h"
 
 
-!   Start the main timer 
+!   Start the main timer
 !   --------------------
     call MAPL_TimerOn(MetaComp, 'RUN', __RC__)
 
@@ -667,11 +667,11 @@ contains
 !   -----------------
     allocate(ssa_emiss_mass(im,jm),    __STAT__)
     allocate(ssa_emiss_num (im,jm),    __STAT__)
-    
+
     allocate(ssc_emiss_mass(im,jm),    __STAT__)
     allocate(ssc_emiss_num (im,jm),    __STAT__)
 
-    allocate(f_grid_efficiency(im,jm), __STAT__) 
+    allocate(f_grid_efficiency(im,jm), __STAT__)
     allocate(w10m(im,jm),              __STAT__)
 
     !  define 10-m wind speed
@@ -700,7 +700,7 @@ contains
 
     ssc_emiss_mass = self%f_emiss_seasalt * f_grid_efficiency * ssc_emiss_mass
     ssc_emiss_num  = self%f_emiss_seasalt * f_grid_efficiency * ssc_emiss_num
- 
+
     if (associated(emiss_ssa)) emiss_ssa = ssa_emiss_mass
     if (associated(emiss_ssc)) emiss_ssc = ssc_emiss_mass
     if (associated(emiss_ss )) emiss_ss  = ssa_emiss_mass + ssc_emiss_mass
@@ -766,7 +766,7 @@ contains
     do l = 1, lm
         do j = 1, jm
             do i = 1, im
-                
+
                 ! set indexes for MATRIX
                 MATRIX_I = i
                 MATRIX_J = j
@@ -783,12 +783,12 @@ contains
                 gas_       = 0.0d0
                 emissions_ = 0.0d0
 
-                
-                ! in-cloud SO4 production rate [ug/m^3/s] 
+
+                ! in-cloud SO4 production rate [ug/m^3/s]
                 so4_aq_rate_ = tiny(0.0d0)  !FCLD(i,j,l) * 1e3*4.43D-11      !0.1 * FCLD(i,j,l) * SO2(i,j,l) * 1.0d9 * (64.066 / MATRIX_MW_AIR) * airdens(i,j,l) / self%dt
 
                 ! set concetrations of gases, 'ug(constituent) m-3'
-                gas_(1) = tiny(0.0d0) ! h2so4(i,j,l) * 1.0d9 * (MATRIX_MW_H2SO4 / MATRIX_MW_AIR) * airdens(i,j,l)    
+                gas_(1) = tiny(0.0d0) ! h2so4(i,j,l) * 1.0d9 * (MATRIX_MW_H2SO4 / MATRIX_MW_AIR) * airdens(i,j,l)
                 gas_(2) = tiny(0.0d0) ! 0.01 * gas_(1)!1.0d9 * (MATRIX_MW_HNO3  / MATRIX_MW_AIR) * airdens(i,j,l)    ! ug(HNO3)  m-3
                 gas_(3) = tiny(0.0d0) ! NH3(i,j,l)   * 1.0d9 * (MATRIX_MW_NH3   / MATRIX_MW_AIR) * airdens(i,j,l)
 
@@ -805,7 +805,7 @@ contains
                 ! AKK
                 aerosol_(MATRIX_MASS_AKK_SU) = M_AKK_SU(i,j,l)
                 aerosol_(MATRIX_NUMB_AKK)    = N_AKK(i,j,l)
-                ! ACC 
+                ! ACC
                 aerosol_(MATRIX_MASS_ACC_SU) = M_ACC_SU(i,j,l)
                 aerosol_(MATRIX_NUMB_ACC)    = N_ACC(i,j,l)
                 ! DD1
@@ -879,7 +879,7 @@ contains
                     aerosol_ = 1e3*tiny(0.0d0)
                 end where
 
-             
+
 
 
                 ! set emissions
@@ -887,16 +887,16 @@ contains
 
                 ! did I get the emissions indexes right?
                 !    REAL, DIMENSION(NEMIS_SPCS) :: EMIS_DENS = (/  EMIS_DENS_SULF,
-                !                                                   EMIS_DENS_SULF, 
-                !                                                   EMIS_DENS_BCAR, 
+                !                                                   EMIS_DENS_SULF,
+                !                                                   EMIS_DENS_BCAR,
                 !                                                   EMIS_DENS_OCAR,
-                !                                                   EMIS_DENS_DUST, 
-                !                                                   EMIS_DENS_SEAS, 
+                !                                                   EMIS_DENS_DUST,
                 !                                                   EMIS_DENS_SEAS,
-                !                                                   EMIS_DENS_BOCC, 
-                !                                                   EMIS_DENS_BOCC, 
+                !                                                   EMIS_DENS_SEAS,
+                !                                                   EMIS_DENS_BOCC,
+                !                                                   EMIS_DENS_BOCC,
                 !                                                   EMIS_DENS_DUST /)
-                ! 
+                !
                 !    CHEM_SPC_NAME(NMASS_SPCS) = (/'SULF','BCAR','OCAR','DUST','SEAS'/)
                 !    EMIS_SPCS_MAP             = (/1,1,2,3,4,5,5,2,3,4/)
 
@@ -907,9 +907,9 @@ contains
                                                      SO2_EMIS_ENERGY(i,j)    + &
                                                      SO2_EMIS_SHIPPING(i,j)) ! AKK SU: volc + biomass
                     emissions_(2) = f_emiss * SO4_EMIS_SHIP(i,j)             ! ACC SU: volc + biomass
-                    emissions_(3) = f_emiss * BC_EMIS_FIRE(i,j)              ! BC1 BC: 
-                    emissions_(4) = f_emiss * OC_EMIS_FIRE(i,j)              ! OC 
-                    emissions_(5) = f_emiss * duf_emiss_mass(i,j)            ! DU 
+                    emissions_(3) = f_emiss * BC_EMIS_FIRE(i,j)              ! BC1 BC:
+                    emissions_(4) = f_emiss * OC_EMIS_FIRE(i,j)              ! OC
+                    emissions_(5) = f_emiss * duf_emiss_mass(i,j)            ! DU
                     emissions_(6) = f_emiss * ssa_emiss_mass(i,j)            ! Accumulation mode: 0.01 -- 0.5 microns
                     emissions_(7) = f_emiss * ssc_emiss_mass(i,j)            ! Coarse mode:       0.50 -- 8.0 microns
                     emissions_(8) = f_emiss * (BC_EMIS_BIOFUEL(i,j) + BC_EMIS_FOSSILFUEL(i,j) + BC_EMIS_SHIP(i,j))
@@ -960,7 +960,7 @@ contains
                 ! AKK
                 M_AKK_SU(i,j,l) = aerosol_(MATRIX_MASS_AKK_SU)
                 N_AKK(i,j,l)    = aerosol_(MATRIX_NUMB_AKK)
-                ! ACC 
+                ! ACC
                 M_ACC_SU(i,j,l) = aerosol_(MATRIX_MASS_ACC_SU)
                 N_ACC(i,j,l)    = aerosol_(MATRIX_NUMB_ACC)
                 ! DD1
@@ -1026,7 +1026,7 @@ contains
                 N_MXX(i,j,l)    = aerosol_(MATRIX_NUMB_MXX)
 
                 ! update sizes
-                DGN_AKK(i,j,l)  = MATRIX_DIAMETER(MATRIX_I,MATRIX_J,MATRIX_L, 1) 
+                DGN_AKK(i,j,l)  = MATRIX_DIAMETER(MATRIX_I,MATRIX_J,MATRIX_L, 1)
                 DGN_ACC(i,j,l)  = MATRIX_DIAMETER(MATRIX_I,MATRIX_J,MATRIX_L, 2)
                 DGN_DD1(i,j,l)  = MATRIX_DIAMETER(MATRIX_I,MATRIX_J,MATRIX_L, 3)
                 DGN_DS1(i,j,l)  = MATRIX_DIAMETER(MATRIX_I,MATRIX_J,MATRIX_L, 4)
@@ -1042,7 +1042,7 @@ contains
                 DGN_BOC(i,j,l)  = MATRIX_DIAMETER(MATRIX_I,MATRIX_J,MATRIX_L,14)
                 DGN_BCS(i,j,l)  = MATRIX_DIAMETER(MATRIX_I,MATRIX_J,MATRIX_L,15)
                 DGN_MXX(i,j,l)  = MATRIX_DIAMETER(MATRIX_I,MATRIX_J,MATRIX_L,16)
-             end do 
+             end do
         end do
     end do
 
@@ -1050,7 +1050,7 @@ contains
     deallocate(MATRIX_CCNSS,      __STAT__)
     deallocate(MATRIX_DIAMETER,   __STAT__)
     deallocate(MATRIX_VDDEP_AERO, __STAT__)
-    
+
 
     call MAPL_TimerOff(MetaComp, '-MICROPHYSICS', __RC__)
 
@@ -1058,7 +1058,7 @@ contains
     deallocate(ssa_emiss_num,     __STAT__)
     deallocate(ssc_emiss_mass,    __STAT__)
     deallocate(ssc_emiss_num,     __STAT__)
-    deallocate(f_grid_efficiency, __STAT__) 
+    deallocate(f_grid_efficiency, __STAT__)
     deallocate(w10m,              __STAT__)
 
     deallocate(dust_emiss_tot, __STAT__)
@@ -1068,7 +1068,7 @@ contains
     deallocate(duc_emiss_num,  __STAT__)
 
 
-!   Stop the main timer 
+!   Stop the main timer
 !   -------------------
     call MAPL_TimerOff(MetaComp, 'RUN', __RC__)
 
@@ -1083,7 +1083,7 @@ contains
 !-------------------------------------------------------------------------
 !BOP
 !
-! !IROUTINE:  Finalize_ --- Finalize MATRIXchem
+! !IROUTINE:  Finalize_ --- Finalize MATRIX
 !
 ! !INTERFACE:
 !
@@ -1105,7 +1105,7 @@ contains
     type(ESMF_State),    intent(inout) :: EXPORT ! Export State
     integer,             intent(out)   :: rc     ! Error return code:
                                                  !  0 - all is well
-                                                 !  1 - 
+                                                 !  1 -
 
 ! !DESCRIPTION: This is a simple ESMF wrapper.
 !
@@ -1117,10 +1117,10 @@ contains
 !-------------------------------------------------------------------------
 
                               __Iam__('Finalize_')
-   
+
     type(MATRIX_state), pointer   :: self               ! Legacy state
     type(ESMF_Grid)               :: GRID               ! Grid
-    type(ESMF_Config)             :: CF                 ! Universal Config 
+    type(ESMF_Config)             :: CF                 ! Universal Config
 
     integer                       :: im_World, jm_World ! Global 2D Dimensions
     integer                       :: im, jm, lm         ! 3D Dimensions
@@ -1169,7 +1169,7 @@ contains
 
     type(MATRIX_state), pointer, intent(out)   :: myState            ! Legacy state
     type(ESMF_Grid),             intent(out)   :: GRID               ! Grid
-    type(ESMF_Config),           intent(out)   :: CF                 ! Universal Config 
+    type(ESMF_Config),           intent(out)   :: CF                 ! Universal Config
 
     integer,                     intent(out)   :: im_World, jm_World ! Global 2D Dimensions
     integer,                     intent(out)   :: im, jm, lm         ! 3D Dimensions
@@ -1267,4 +1267,4 @@ contains
 
    end subroutine extract_
 
-end module MATRIXchem_GridCompMod
+end module MATRIX_GridCompMod
