@@ -19,7 +19,7 @@ set (srcs
   microphysics/TRAMP_isocom2.F
   microphysics/TRAMP_thermo_isorr2.F
   microphysics/TRAMP_matrix.F
-  MATRIXchem_GridCompMod.F90
+  MATRIX_GridCompMod.F90
   )
 
 esma_add_library (${this} SRCS ${srcs} DEPENDENCIES Chem_Shared MAPL ESMF::ESMF)
