@@ -1,7 +1,7 @@
 **Audience:** coding agents and developers working on MATRIX.
-**Describes:** the MAPL2 line, branch `main`.
+**Describes:** the MAPL3 line, branch `release/MAPL-v3`.
 **Verified against:** `MATRIX` @ `dfe783d` (2026-11-06).
-**Placement:** as in the GEOSgcm fixture (`components.yaml` @ `0f2e0fb`).
+**Placement:** as in the GEOSgcm fixture (`components.yaml` @ `f50622d`).
 Other fixtures may place this repository elsewhere; paths inside it do not change.
 
 # Previous architectural decisions

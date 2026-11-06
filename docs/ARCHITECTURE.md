@@ -1,14 +1,16 @@
 # MATRIX architecture
 
 **Audience:** coding agents and developers working on the MATRIX aerosol microphysics component.
-**Describes:** the MAPL2 line, branch `main`.
+**Describes:** the MAPL3 line, branch `release/MAPL-v3`.
 **Verified against:** `MATRIX` @ `dfe783d` (2026-11-06).
-**Placement:** as in the GEOSgcm fixture (`components.yaml` @ `0f2e0fb`): key `MATRIX`, checked out at `src/Components/@GEOSgcm_GridComp/GEOSagcm_GridComp/GEOSphysics_GridComp/@GEOSchem_GridComp/@MATRIX`.
+**Placement:** as in the GEOSgcm fixture (`components.yaml` @ `f50622d`): key `MATRIX`, checked out at `src/Components/@GEOSgcm_GridComp/GEOSagcm_GridComp/GEOSphysics_GridComp/@GEOSchem_GridComp/@MATRIX`.
 Other fixtures (for example GEOSadas, GEOSldas) may place this repository
 elsewhere; paths inside this repository do not change.
 
-Parent: the Chemistry grid component, `@GEOSchem_GridComp`
-(`../docs/ARCHITECTURE.md`, sections 2.3 and 3; not repeated here).
+**Build status on this line:** not built; not yet ported to MAPL3. On `release/MAPL-v3`, `@GEOSchem_GridComp/CMakeLists.txt` calls `esma_add_subdirectories(GOCART)` only, with the comment "Restore subdirs as components are ported to MAPL3."; `MATRIX` appears only in a commented-out list, as does `Chem_Shared` (from the Chemistry `Shared` directory, also in the commented-out list), its build dependency. The `esma_add_library` block that builds `GEOS_ChemGridComp.F90` (which adds this component) is commented out (`../CMakeLists.txt`); the file itself is present. The code below is the MAPL2 code, identical to the MAPL2 line, kept for a later port. Statements about the parent describe `GEOS_ChemGridComp.F90` as it is; the file is present but not compiled.
+
+Parent: the Chemistry grid component, `@GEOSchem_GridComp` (on this line the parent's documents are not written yet; the MAPL2-line versions are on its `develop` branch)
+(`../docs/ARCHITECTURE.md`; not repeated here).
 
 ## 1. Purpose
 
@@ -25,7 +27,7 @@ cell per step, and computes sea-salt and dust emissions itself.
 
 - The Chemistry parent adds it with `MAPL_AddChild(GC, NAME='MATRIX', SS=MATRIX_SetServices)` when `ENABLE_MATRIX:` is true (`../GEOS_ChemGridComp.F90`, SetServices). Public entry: `SetServices` only (`MATRIX_GridCompMod.F90`, `public`).
 - No children (`MATRIX_GridCompMod.F90`, SetServices: no `MAPL_AddChild`).
-- Provides no `AERO` state and no aerosol-optics method: the module has no `AERO` reference and no `ESMF_MethodAdd` (`MATRIX_GridCompMod.F90`, grep). For the cross-repository `AERO` story see `../docs/ARCHITECTURE.md` section 3.
+- Provides no `AERO` state and no aerosol-optics method: the module has no `AERO` reference and no `ESMF_MethodAdd` (`MATRIX_GridCompMod.F90`, grep). For the cross-repository `AERO` story see the parent's architecture document.
 - Connections made by the parent for MATRIX (`../GEOS_ChemGridComp.F90`, SetServices): `AIRDENS` and `DELP` from `CHEMENV`; from `ACHEM` (only if both are enabled) `SO2`, `H2SO4`, `NH3`, `SOAG` (received as `SOA_GAS`), `pSO4_aq`, `pNH4_aq`. MATRIX is also a legal provider name in `GetProvider_`.
 
 ## 3. Entry points
