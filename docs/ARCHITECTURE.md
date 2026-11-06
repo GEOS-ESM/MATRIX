@@ -9,7 +9,7 @@ elsewhere; paths inside this repository do not change.
 
 **Build status on this line:** not built; not yet ported to MAPL3. On `release/MAPL-v3`, `@GEOSchem_GridComp/CMakeLists.txt` calls `esma_add_subdirectories(GOCART)` only, with the comment "Restore subdirs as components are ported to MAPL3."; `MATRIX` appears only in a commented-out list, as does `Chem_Shared` (from the Chemistry `Shared` directory, also in the commented-out list), its build dependency. The `esma_add_library` block that builds `GEOS_ChemGridComp.F90` (which adds this component) is commented out (`../CMakeLists.txt`); the file itself is present. The code below is the MAPL2 code, identical to the MAPL2 line, kept for a later port. Statements about the parent describe `GEOS_ChemGridComp.F90` as it is; the file is present but not compiled.
 
-Parent: the Chemistry grid component, `@GEOSchem_GridComp` (on this line the parent's documents are not written yet; the MAPL2-line versions are on its `develop` branch)
+Parent: the Chemistry grid component, `@GEOSchem_GridComp`
 (`../docs/ARCHITECTURE.md`; not repeated here).
 
 ## 1. Purpose

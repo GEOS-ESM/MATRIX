@@ -8,7 +8,7 @@ aerosol modes. Nested repository of the Chemistry grid component.
 **Verified against:** `MATRIX` @ `dfe783d` (2026-11-06).
 **Placement:** GEOSgcm fixture (`components.yaml` @ `f50622d`), key `MATRIX`:
 `src/Components/@GEOSgcm_GridComp/GEOSagcm_GridComp/GEOSphysics_GridComp/@GEOSchem_GridComp/@MATRIX`.
-Parent: `../docs/ARCHITECTURE.md` (Chemistry; added when `ENABLE_MATRIX:` is true; on this line the parent's documents are not written yet; the MAPL2-line versions are on its `develop` branch).
+Parent: `../docs/ARCHITECTURE.md` (Chemistry; added when `ENABLE_MATRIX:` is true).
 
 **Build status on this line:** not built; not yet ported to MAPL3. On
 `release/MAPL-v3`, `@GEOSchem_GridComp/CMakeLists.txt` calls
